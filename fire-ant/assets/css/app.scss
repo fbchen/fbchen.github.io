@@ -290,10 +290,11 @@ input[type=date] {
 
 form.ng-submitted .invalid-item, form .invalid-item.ng-dirty {
     border-color: #F44336;
-    background-color: #FAEBD7;
+    background-color: rgba(255, 191, 0, 0.1);
 }
 form.ng-submitted .ng-invalid, form .ng-invalid.ng-dirty, form .ng-invalid.ng-touched {
-    background-color: #FAEBD7;
+    border-color: #ffbf00;
+    background-color: rgba(255, 191, 0, 0.1);
 }
 
 .item-divider.sm {
