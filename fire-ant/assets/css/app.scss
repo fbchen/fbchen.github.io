@@ -40,101 +40,98 @@ body {
 .block {
   display: block;
 }
+
 .flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+.flex-start {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     align-items: stretch;
+}
+.flex-start-nowrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: start;
+  align-items: stretch;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 .ws {
   white-space: nowrap;
 }
-
-.ml5 {
-  margin-left: 5px;
+.pr {
+  position: relative;
 }
 
-.mr5 {
-  margin-right: 5px;
-}
-
-.mt5 {
-  margin-top: 5px;
-}
-
-.mb5 {
-  margin-bottom: 5px;
-}
-
-.mt10 {
-  margin-top: 10px;
-}
-
-.mb10 {
-  margin-bottom: 10px;
-}
-
-.mr10 {
-  margin-right: 10px;
-}
-
-.ml10 {
-  margin-left: 10px;
-}
-
-.mt0 {
-  margin-top: 0;
-}
-
-.mb0 {
-  margin-bottom: 0;
-}
-
-.ml0 {
-  margin-left: 0;
-}
-
-.mr0 {
-  margin-right: 0;
+/** 创建padding、margin的常用样式 */
+$gutterList: 0, 5, 8, 10, 16, 24;
+@each $gutter in $gutterList {
+    .mb#{$gutter} {
+        margin-bottom: #{$gutter}px;
+    }
+    .mt#{$gutter} {
+        margin-top: #{$gutter}px;
+    }
+    .ml#{$gutter} {
+        margin-left: #{$gutter}px;
+    }
+    .mr#{$gutter} {
+        margin-right: #{$gutter}px;
+    }
+    .pb#{$gutter} {
+        padding-bottom: #{$gutter}px;
+    }
+    .pt#{$gutter} {
+        padding-top: #{$gutter}px;
+    }
+    .pl#{$gutter} {
+        padding-left: #{$gutter}px;
+    }
+    .pr#{$gutter} {
+        padding-right: #{$gutter}px;
+    }
 }
 
 .no-margin {
   margin: 0 !important;
 }
-
 .no-padding {
   padding: 0 !important;
 }
-.pb0 {
-    padding-bottom: 0;
+.margin {
+    margin: 10px;
 }
-.pl0 {
-    padding-left: 0;
+.padding {
+    padding: 10px;
 }
-.pr0 {
-    padding-right: 0;
+.padding-top {
+    padding-top: 10px;
 }
-.pt0 {
-    padding-top: 0;
+.padding-left {
+    padding-left: 10px;
 }
-.pb5 {
-    padding-bottom: 5px;
+.padding-right {
+    padding-right: 10px;
 }
-.pl5 {
-    padding-left: 5px;
-}
-.pr5 {
-    padding-right: 5px;
-}
-.pt5 {
-    padding-top: 5px;
-}
-.padding2 {
-    padding: 2px;
+.padding-bottom {
+    padding-bottom: 10px;
 }
 
+.border {
+    border: 1px solid #F1F1F1;
+}
 .border-bottom {
     border-bottom: 1px solid #F1F1F1;
 }
@@ -146,9 +143,6 @@ body {
 }
 .border-top {
     border-top: 1px solid #F1F1F1;
-}
-.border {
-    border: 1px solid #F1F1F1;
 }
 .border-none, .no-border {
     border: 0 none;
@@ -165,33 +159,17 @@ body {
 .border-top-none {
     border-top: 0;
 }
-
-.pr {
-  position: relative;
+.border-dashed {
+    border-style: dashed;
 }
 
-.w60 {
-  width: 60px
-}
 
-.w80 {
-  width: 80px
-}
-
-.w100 {
-  width: 100px
-}
-
-.w120 {
-  width: 120px
-}
-
-.w150 {
-  width: 150px
-}
-
-.w200 {
-  width: 200px
+/** 创建width的常用样式 */
+$widthList: 60, 80, 100, 120, 150, 200;
+@each $width in $widthList {
+    .w#{$width} {
+        width: #{$width}px;
+    }
 }
 
 .full-width {
@@ -204,11 +182,14 @@ body {
 .f08em {
     font-size: 0.8em;
 }
-.f09em {
+.f09em, .secondary {
     font-size: 0.9em;
 }
 .f12em {
     font-size: 1.2em;
+}
+.f14em {
+    font-size: 1.4em;
 }
 .f15em {
     font-size: 1.5em;
@@ -249,6 +230,13 @@ body {
 .mute-button {
     color: #777;
 }
+.silent {
+    pointer-events: none;
+}
+.sub-title {
+    font-size: 75%;
+    padding-left: 10px;
+}
 
 .highlight-left {
     border-left: 4px solid #ff8706;
@@ -263,12 +251,18 @@ body {
 .error {
     color: #F44336;
     font-size: 0.9em;
-    padding: 10px 0 5px 10px;
 }
 .alert-message .error {
     padding: 0;
 }
+i.required {
+    color: #F44336;
+    font-style: normal;
+}
 
+.align-center {
+    text-align: center;
+}
 .text-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -282,19 +276,42 @@ img.align-middle {
 img.radius {
     border-radius: 50%;
 }
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px
+}
 
 input[type=date] {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-
-form.ng-submitted .invalid-item, form .invalid-item.ng-dirty {
-    border-color: #F44336;
-    background-color: rgba(255, 191, 0, 0.1);
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-form.ng-submitted .ng-invalid, form .ng-invalid.ng-dirty, form .ng-invalid.ng-touched {
+
+form input.ng-invalid,
+form .ant-input-number.ng-invalid, form .ant-input-number.ng-invalid input,
+form .ant-select.ng-invalid .ant-select-selection,
+form .ant-cascader.ng-invalid input.ant-cascader-input  {
     border-color: #ffbf00;
-    background-color: rgba(255, 191, 0, 0.1);
+    background-color: rgba(255, 191, 0, 0.1) !important;
+}
+
+tr.editing input.ng-invalid,
+form.ng-submitted input.ng-invalid,
+form.ng-submitted .ant-input-number.ng-invalid, form.ng-submitted .ant-input-number.ng-invalid input,
+form input.ng-invalid.ng-dirty,  form input.ng-invalid.ng-touched,
+form .ng-invalid input.ng-dirty, form .ng-invalid input.ng-touched,
+form .ant-select.ng-invalid.ng-touched .ant-select-selection,
+form .ant-cascader.ng-invalid.ng-touched input.ant-cascader-input {
+    border-color: #F44336;
+    background-color: rgba(255, 81, 0, 0.1) !important;
 }
 
 .item-divider.sm {
@@ -352,6 +369,21 @@ img.wx-avatar, .item-avatar > img.wx-avatar {
   transition: all 600ms cubic-bezier(0.175, 0.885, 0.335, 1);
 }
 
+.input-highlight input {
+    animation: inputHighlight 1.2s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+
+@keyframes inputHighlight {
+    0% {
+        background-color: rgba(255, 241, 170, 0);
+    }
+    70% {
+        background-color: rgba(255, 241, 170, 1);
+    }
+    100% {
+        background-color: rgba(255, 241, 170, 0);
+    }
+}
 
 @-webkit-keyframes grow {
   0% {
@@ -438,31 +470,6 @@ img.wx-avatar, .item-avatar > img.wx-avatar {
   border-left-color: #ce4844;
 }
 
-.pin-tag {
-    font-size: 13px;
-    background: rgba(0, 0, 0, 0.4);
-    color: white;
-    padding: 4px 6px;
-    position: absolute;
-}
-
-.pin-tag1 {
-    border-radius: 15px 0px 0px 15px;
-    right: 0px;
-    top: 5px;
-}
-
-.zp-reward {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    z-index: 10;
-}
-.zp-reward img.reward {
-    width: 30px;
-    height: 30px;
-}
-
 .ui-input-group .input-bar {
     position: relative;
     display: block;
@@ -504,9 +511,7 @@ img.full-width-image {
     padding: 2px;
 }
 
-ion-app.md {
-    /*background-image: url('../images/bg.png');*/
-}
+
 
 .table-wrapper .label-md {
     margin: 0;
@@ -568,3 +573,70 @@ ion-app.md {
     box-shadow: inset 0 -1px 0 0 #afbed4;
     margin-right: 8px;
 }
+
+
+
+
+
+
+/*******************chenzhihui*****************/
+.expander-icon {
+    padding: 0 4px;
+    border: 1px  solid #F1F1F1;
+    color: #999;
+    cursor: pointer;
+}
+.bg-gray {
+    background-color: #f7f7f7 !important;
+}
+.pointer {
+    cursor: pointer;
+}
+.type-list {
+    margin-top:24px;
+}
+.type-list>li {
+    background-color: #f7f7f7;
+    display: block;
+    border-radius: 4px;
+    padding: 16px 25px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.search-row {
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+}
+.search-col {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+.wx-avatar46 {
+    width: 46px;
+    height: 46px;
+    vertical-align: middle;
+}
+.wx-avatar96 {
+    width: 96px;
+    height: 96px;
+    vertical-align: middle;
+}
+.circular {
+    display: inline-block;
+    border-radius:8px 8px 8px 8px;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+}
+.circular-disabled {
+    background-color: #F50;
+}
+.circular-enabled {
+    background-color: #87d068;
+}
+.ant-table-scroll {
+    overflow-x: auto !important;
+}
+
